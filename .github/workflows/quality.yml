@@ -20,6 +20,9 @@ jobs:
           distribution: temurin
           java-version: '17'
           cache: maven
+        
+      - name: Make mvnw executable
+        run: chmod +x ./mvnw
 
       - name: Run JUnit regression tests
         run: ./mvnw test
