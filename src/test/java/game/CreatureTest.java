@@ -87,12 +87,14 @@ public class CreatureTest {
 
     @Test
     void creatureHandlesItsOwnDeath() {
+        world.add(creature);
         creature.modifyHp(-100, "Fatal damage");
         int x = creature.x;
         int y = creature.y;
         int z = creature.z;
         assertTrue(creature.hp() < 1);
         assertEquals("Fatal damage", creature.causeOfDeath());
+        assertNull(world.creature(x, y, z));
         assertNotSame(creature, world.creature(x, y, z));
     }
 
