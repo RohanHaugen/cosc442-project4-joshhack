@@ -3,6 +3,7 @@ package game;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class WorldBuilder {
 	private int width;
@@ -11,14 +12,20 @@ public class WorldBuilder {
 	private Tile[][][] tiles;
 	private int[][][] regions;
 	private int nextRegion;
+	private Random random;
 
 	public WorldBuilder(int width, int height, int depth) {
+		this(width, height, depth, new Random());
+	}
+
+	WorldBuilder(int width, int height, int depth, Random random) {
 		this.width = width;
 		this.height = height;
 		this.depth = depth;
 		this.tiles = new Tile[width][height][depth];
 		this.regions = new int[width][height][depth];
 		this.nextRegion = 1;
+		this.random = random;
 	}
 
 	public World build() {
@@ -29,7 +36,7 @@ public class WorldBuilder {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				for (int z = 0; z < depth; z++) {
-					tiles[x][y][z] = Math.random() < 0.5 ? Tile.FLOOR : Tile.WALL;
+					tiles[x][y][z] = random.nextDouble() < 0.5 ? Tile.FLOOR : Tile.WALL;
 				}
 			}
 		}
@@ -171,7 +178,7 @@ public class WorldBuilder {
 			}
 		}
 		
-		Collections.shuffle(candidates);
+		Collections.shuffle(candidates, random);
 		return candidates;
 	}
 	
@@ -180,8 +187,8 @@ public class WorldBuilder {
 		int y = -1;
 		
 		do {
-			x = (int)(Math.random() * width);
-			y = (int)(Math.random() * height);
+			x = random.nextInt(width);
+			y = random.nextInt(height);
 		}
 		while (tiles[x][y][0] != Tile.FLOOR);
 		

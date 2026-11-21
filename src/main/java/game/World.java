@@ -3,10 +3,12 @@ package game;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class World {
 	private Tile[][][] tiles;
 	private Item[][][] items;
+	private Random random;
 	
 	private int width;
 	public int width() { return width; }
@@ -20,7 +22,12 @@ public class World {
 	private List<Creature> creatures;
 	
 	public World(Tile[][][] tiles){
+		this(tiles, new Random());
+	}
+
+	World(Tile[][][] tiles, Random random){
 		this.tiles = tiles;
+		this.random = random;
 		this.width = tiles.length;
 		this.height = tiles[0].length;
 		this.depth = tiles[0][0].length;
@@ -75,8 +82,8 @@ public class World {
 		int y;
 		
 		do {
-			x = (int)(Math.random() * width);
-			y = (int)(Math.random() * height);
+			x = random.nextInt(width);
+			y = random.nextInt(height);
 		} 
 		while (!tile(x,y,z).isGround() || creature(x,y,z) != null);
 		
@@ -119,8 +126,8 @@ public class World {
 		int y;
 		
 		do {
-			x = (int)(Math.random() * width);
-			y = (int)(Math.random() * height);
+			x = random.nextInt(width);
+			y = random.nextInt(height);
 		} 
 		while (!tile(x,y,depth).isGround() || item(x,y,depth) != null);
 		
