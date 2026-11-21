@@ -120,4 +120,13 @@ class WorldTest {
 
         assertEquals('@', world.glyph(1, 1, 0));
     }
+
+    @Test
+    void glyphUsesItemGlyphBeforeTileGlyph() {
+        Item item = new Item('*', Color.WHITE, "item", null);
+
+        world.addAtEmptySpace(item, 1, 1, 0);
+
+        assertEquals('*', world.glyph(1, 1, 0));
+    }
 }
