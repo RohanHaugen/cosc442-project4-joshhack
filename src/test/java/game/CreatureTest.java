@@ -77,7 +77,6 @@ public class CreatureTest {
         assertTrue(creature.hp() < 1);
         assertEquals("Fatal damage", creature.causeOfDeath());
         assertNull(world.creature(0,0,0));
-        System.out.println(world.item(0,0,0).name());
         assertTrue(world.item(0,0,0).name().equals(creature.name()+" corpse"));
         assertTrue(world.item(0,0,0).glyph()=='%');
         assertTrue(world.item(0,0,0).color()==creature.color());
